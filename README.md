@@ -1,15 +1,43 @@
 # Ghana Smart Service Operations Optimizer
 
-**Team SEG26-41 SYNERGY · University of Ghana, Legon · DCIT 204/308 Joint DSA Semester Project**
+**TEAM ATLAS · GROUP 25 · DCIT 204/308 Joint DSA Semester Project · University of Ghana, Legon**
 
-A console-based Java service-operations platform for a **Legon campus service hub**:
-it stores campus locations, roads, service requests and resources in a SQLite
-database, loads them into **custom-built data structures** (no `java.util`
-collections in core logic), and runs **custom algorithms** to prioritise tickets,
-find routes, check reachability, build minimum-cost networks, and select work
-within a budget — then measures its own performance empirically.
+## What we're doing
 
-> **New to the project? Read `docs/PROJECT_OVERVIEW.md` first.**
+The University of Ghana's Legon campus has a constant stream of maintenance
+and service requests — broken ACs in the halls, Wi-Fi outages in the labs,
+faulty locks, water leaks, shuttle breakdowns — and no automated way to
+decide what gets handled first, how help gets there fastest, or what the
+maintenance budget can actually cover on a given day.
+
+**We built that system.** It's a console-based Java application, backed by a
+real SQLite database, that:
+
+- **Stores** real campus data — 56 locations, 140 roads, 320 service
+  requests, 32 maintenance resources — in a permanent database, not just in
+  memory;
+- **Organizes** that data using **15 data structures we built entirely from
+  scratch** (no `java.util.ArrayList`, `HashMap`, `PriorityQueue`, etc. — the
+  brief requires our own implementations for every core structure);
+- **Decides**, using **8 algorithms we implemented ourselves**, who gets
+  served next (priority scheduling), the fastest route across campus
+  (Dijkstra), what's reachable (BFS/DFS), the cheapest way to connect every
+  location (Prim & Kruskal), and which tickets fit today's budget for the
+  most benefit (greedy vs. dynamic programming, deliberately including a
+  case where greedy gets it wrong);
+- **Proves** all of the above actually works — 154 automated tests, 6
+  required trace tables, and 6 empirical performance experiments comparing
+  theory against real timed measurements.
+
+Every part of this maps directly to the assignment brief: custom data
+structures and algorithms, a real database integration, correctness
+evidence, and performance analysis, all wrapped in a menu an examiner can
+run without touching source code.
+
+> **New to the project? Read `docs/PROJECT_OVERVIEW.md` first** — it explains
+> how everything fits together and who owns what. If you want it explained
+> in plain, everyday language with no assumed technical background, read
+> `docs/PLAIN_LANGUAGE_GUIDE.md` instead.
 
 ---
 
@@ -41,7 +69,7 @@ classpath correctly for you. If you must run it manually, the exact commands are
 in the "Manual commands" section below.
 
 Two other common causes of this same error:
-1. You're not standing **inside** the `SEG26-41-SYNERGY` folder when you run the
+1. You're not standing **inside** this project folder when you run the
    command (check with `dir` on Windows or `ls` on Mac/Linux — you should see
    `bin`, `lib`, `src`, `data` right there).
 2. The zip only partly extracted and `lib/sqlite-jdbc.jar` is missing or 0 KB —
@@ -91,7 +119,9 @@ loads the seed CSVs automatically.
 ├── data/          schema.sql + 5 seed CSVs (~596 records)
 ├── results/       benchmark CSV exports (generated)
 ├── lib/           sqlite-jdbc.jar
-└── docs/          PROJECT_OVERVIEW + 4 squad docs + report scaffold
+├── reference/     original lecturer-issued brief and dictionary documents
+└── docs/          plain-language guide, project overview, 4 squad docs,
+                    GitHub guides, report scaffold
 ```
 
 ---
@@ -105,14 +135,6 @@ loads the seed CSVs automatically.
 - ✅ 6 trace tables, 6 benchmark experiments (3-run averages + raw timings)
 - ✅ Squad documentation + technical-report scaffold
 
-### Before submission (team action)
-
-1. Put the **real 14 index numbers** into `src/campushub/config/IndexParameters.java`.
-2. Plot the six `results/*.csv` files into graphs for the report.
-3. Fill in `docs/TECHNICAL_REPORT_SCAFFOLD.md`, add screenshots, export PDF+DOCX.
-4. Record the 5–8 min demo video; rehearse the oral defense (1 structure + 1
-   algorithm per member — table in `docs/PROJECT_OVERVIEW.md`).
-5. Add the AI-assistance acknowledgment (brief §15).
 
 ---
 
