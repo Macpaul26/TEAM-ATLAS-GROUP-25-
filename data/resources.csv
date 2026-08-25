@@ -1,0 +1,33 @@
+resource_id,resource_type,home_location_id,capacity,availability_status
+RS001,IT Support Rider,L051,1,MAINTENANCE
+RS002,Cleaning Crew,L025,4,MAINTENANCE
+RS003,Electrician Team,L020,4,AVAILABLE
+RS004,Cleaning Crew,L006,1,MAINTENANCE
+RS005,Facilities Van,L037,1,AVAILABLE
+RS006,Security Patrol Vehicle,L019,2,MAINTENANCE
+RS007,Courier Rider,L047,1,AVAILABLE
+RS008,IT Support Rider,L002,4,MAINTENANCE
+RS009,Cleaning Crew,L007,4,MAINTENANCE
+RS010,Plumbing Team,L032,1,AVAILABLE
+RS011,Cleaning Crew,L021,1,MAINTENANCE
+RS012,Security Patrol Vehicle,L041,2,BUSY
+RS013,Maintenance Van,L036,1,AVAILABLE
+RS014,Electrician Team,L055,1,BUSY
+RS015,Electrician Team,L032,1,AVAILABLE
+RS016,Maintenance Van,L024,1,AVAILABLE
+RS017,Ambulance,L047,1,AVAILABLE
+RS018,Ambulance,L033,4,AVAILABLE
+RS019,Plumbing Team,L036,1,BUSY
+RS020,Maintenance Van,L043,4,AVAILABLE
+RS021,Security Patrol Vehicle,L030,2,AVAILABLE
+RS022,Cleaning Crew,L008,1,MAINTENANCE
+RS023,Maintenance Van,L021,4,BUSY
+RS024,Security Patrol Vehicle,L026,1,AVAILABLE
+RS025,IT Support Rider,L017,4,AVAILABLE
+RS026,Security Patrol Vehicle,L007,1,BUSY
+RS027,Shuttle Bus,L019,1,AVAILABLE
+RS028,Shuttle Bus,L046,1,BUSY
+RS029,Plumbing Team,L052,1,AVAILABLE
+RS030,Courier Rider,L051,4,MAINTENANCE
+RS031,Courier Rider,L035,4,BUSY
+RS032,Cleaning Crew,L030,4,MAINTENANCE

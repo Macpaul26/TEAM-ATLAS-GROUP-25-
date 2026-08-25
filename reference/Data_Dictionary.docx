@@ -1,0 +1,114 @@
+**Ghana Smart Service Operations Optimizer**
+
+Data Dictionary — Dataset Package
+
+*DCIT 204/308 Joint DSA Semester Project · Team SEG26-41 SYNERGY · Local context: University of Ghana, Legon campus service hub*
+
+# 1. Overview
+
+This dataset seeds the six-table SQLite database (schema.sql) for the Ghana Smart Service Operations Optimizer. It models a campus service-dispatch platform for the University of Ghana, Legon: hostels, academic buildings, admin offices, security posts and other campus locations connected by roads/paths, with service requests (IT support, security, facility repair, medical, etc.) that need to be prioritised and assigned to resources (vans, riders, crews, ambulance).
+
+# 2. Record counts vs brief minimums
+
+| **Entity** | **Minimum required** | **Records provided** | **Status** |
+| --- | --- | --- | --- |
+| Locations | 50 | 53 | Met |
+| Roads / edges | 100 | 137 | Met |
+| Service requests | 300 | 320 | Met |
+| Resources | 30 | 32 | Met |
+| Algorithm runs | 30 | 50 | Met |
+
+## 3.1 locations  (53 records)
+
+Every node in the campus service network (hostels, academic buildings, admin offices, security posts, retail points, sports facilities, shuttle stops, health facilities).
+
+| **Field** | **Type / constraint** | **Description** | **Example** |
+| --- | --- | --- | --- |
+| location_id | TEXT (PK) | Unique location code, format L### (e.g. L001). | - |
+| name | TEXT | Real / realistic local name of the place on campus. | Commonwealth Hall |
+| area | TEXT | Campus sub-area / zone. | Legon, Haatso |
+| location_type | TEXT (enum) | One of: Hostel, Academic, Library, Health, Admin, Security, Retail, Sports, Shuttle. | Hostel |
+| x_coord | REAL | Latitude (or local grid X). | 5.6531 |
+| y_coord | REAL | Longitude (or local grid Y). | 0.1857 |
+
+## 3.2 roads  (137 records)
+
+Weighted edges connecting locations - the graph that BFS/DFS/Dijkstra/Prim/Kruskal run over. Modelled as directed rows but the application layer treats the network as traversable both ways.
+
+| **Field** | **Type / constraint** | **Description** | **Example** |
+| --- | --- | --- | --- |
+| road_id | TEXT (PK) | Unique road/edge code, format R### (e.g. R001). | - |
+| from_location_id | TEXT (FK -> locations) | Origin node of the edge. | L001 |
+| to_location_id | TEXT (FK -> locations) | Destination node of the edge. | L049 |
+| distance_km | REAL, > 0 | Physical distance between the two locations. | 0.10 |
+| travel_time_min | INTEGER, > 0 | Estimated travel time on foot/vehicle. | 1 |
+| condition_weight | REAL, >= 0.5 | Multiplier reflecting road condition; ~1.0 = good, higher = worse (traffic, potholes, construction). | 1.09 |
+
+## 3.3 service_requests  (320 records)
+
+Jobs to be queued, prioritised, searched and sorted by the dispatch engine - the main workload for the priority queue, hash table index, and scheduling algorithms.
+
+| **Field** | **Type / constraint** | **Description** | **Example** |
+| --- | --- | --- | --- |
+| request_id | TEXT (PK) | Unique request code, format Q### (e.g. Q001). | - |
+| source_location_id | TEXT (FK -> locations) | Where the request originates. | L017 |
+| destination_location_id | TEXT (FK -> locations) | Where the resource must go / deliver to. | L016 |
+| category | TEXT | Service category. | Security, IT Support, Facility Repair, Electrical, Plumbing, Medical, Maintenance, Cleaning, Document, Lab Equipment, Shuttle Request, Waste Pickup |
+| urgency | INTEGER, 1-5 | Priority level used by the priority queue / heap (5 = most urgent). | 2 |
+| time_submitted | TEXT (ISO 8601) | Timestamp the request was logged. | 2026-07-05T16:54 |
+| deadline | TEXT (ISO 8601) | Timestamp by which the request must be resolved (always after time_submitted). | 2026-07-05T22:54 |
+| status | TEXT (enum) | One of: NEW, IN_PROGRESS, COMPLETED, CANCELLED. | COMPLETED |
+
+## 3.4 resources  (32 records)
+
+Vans, riders, crews and other assets that can be assigned to a service request.
+
+| **Field** | **Type / constraint** | **Description** | **Example** |
+| --- | --- | --- | --- |
+| resource_id | TEXT (PK) | Unique resource code (e.g. R001, V001, A003). | - |
+| resource_type | TEXT | What kind of resource. | IT Support Rider, Electrician Team, Ambulance, Plumbing Team, Facilities Van, Security Patrol Vehicle, Shuttle Bus, Cleaning Crew, Maintenance Van, Courier Rider |
+| home_location_id | TEXT (FK -> locations) | Base/depot location for this resource. | L009 |
+| capacity | INTEGER, > 0 | How many requests/passengers it can serve at once. | 1 |
+| availability_status | TEXT (enum) | One of: AVAILABLE, BUSY, MAINTENANCE. | AVAILABLE |
+
+## 3.5 algorithm_runs  (50 records)
+
+Empirical timing/memory measurements produced by Module M10 (the efficiency lab) - search, sort, hash table, heap and graph experiments across increasing input sizes.
+
+| **Field** | **Type / constraint** | **Description** | **Example** |
+| --- | --- | --- | --- |
+| run_id | TEXT (PK) | Unique run code, format RUN### (e.g. RUN001). | - |
+| algorithm_name | TEXT | Which algorithm/structure was measured. | LinearSearch, BinarySearch, SelectionSort, MergeSort, QuickSort, HashTable, Dijkstra, etc. |
+| input_size | INTEGER, > 0 | Number of records/keys used for this run. | 1000 |
+| time_ns | INTEGER, >= 0 | Measured runtime in nanoseconds (average of 3 runs). | 43965 |
+| memory_kb | INTEGER, >= 0 | Measured memory footprint in kilobytes. | 118 |
+| date_run | TEXT (date) | Date the experiment was run. | 2026-07-15 |
+
+## 3.6 audit_events  (0 records)
+
+Stack-based undo log / system event trail (backed by the custom MyStack structure). Populated at runtime by the application, not seeded from CSV - kept empty in the seed data on purpose.
+
+| **Field** | **Type / constraint** | **Description** | **Example** |
+| --- | --- | --- | --- |
+| event_id | INTEGER (PK, autoincrement) | Auto-generated event number. | - |
+| event_type | TEXT | e.g. ASSIGN, UNDO_ASSIGN, STATUS_CHANGE, DELETE. | ASSIGN |
+| entity_type | TEXT | Which table the event refers to. | service_requests |
+| entity_id | TEXT | ID of the affected row. | Q001 |
+| details / event_time | TEXT | Free-text details plus an ISO timestamp defaulted by SQLite. | (auto) |
+
+# 4. Referential integrity
+
+roads.from_location_id / to_location_id, service_requests.source_location_id / destination_location_id, and resources.home_location_id all reference locations.location_id. Foreign keys are enforced by SQLite (PRAGMA foreign_keys = ON) and independently checked by the CSV loader before insertion — see Module M2 (CsvLoader.java / ValidationReport.java) for validation evidence.
+
+# 5. Files in this package
+
+| **File** | **Purpose** |
+| --- | --- |
+| data/schema.sql | CREATE TABLE statements for all 6 tables, indexes and constraints. |
+| data/locations.csv | Seed data for the locations table. |
+| data/roads.csv | Seed data for the roads table. |
+| data/service_requests.csv | Seed data for the service_requests table. |
+| data/resources.csv | Seed data for the resources table. |
+| data/algorithm_runs.csv | Seed data for the algorithm_runs table (empirical results). |
+| Data_Dictionary.docx | This document. |
+| Dataset_Evidence_Note.docx | AI-resistance / localisation evidence note (brief §2). |

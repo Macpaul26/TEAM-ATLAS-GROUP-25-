@@ -1,0 +1,61 @@
+**UNIVERSITY OF GHANA — DEPARTMENT OF COMPUTER SCIENCE**
+
+DCIT 204/308: Data Structures and Algorithms I & II
+
+**Ghana Smart Service Operations Optimizer**
+
+**Team Workflow ****&**** Sub-Team Process Plan**
+
+*How the 14-Member Team Should Organise **&** Execute the Project*
+
+# **1. Why Sub-Teams, Not 14 Solo Lanes**
+
+With 14 people each owning one narrow role, two problems show up fast: bottlenecks (structures work can't start until the database schema is ready) and no backup if someone falls behind. Running as four coordinated sub-teams fixes both — people who depend on each other's work sit in the same squad, and each squad has enough people to cover for one another.
+
+# **2. The Four Sub-Teams**
+
+| **Squad** | **Size** | **Timing** | **Members / Goal** |
+| --- | --- | --- | --- |
+| **Foundation Squad** | 4 people | Finishes Week 1 — unblocks everyone else | • Project Lead & Systems Architect • Local Context & Dataset Lead • Database Architect • Database Integration Engineer *Lock the local context, dataset, schema and working database connection so every other squad has real data to build against.* |
+| **Structures Squad** | 5 people | Weeks 1–2, reviews each other's PRs | • Linear Structures Engineer • Queue Structures Engineer • Tree Structures Engineer • Hash & Set/Map Engineer • Priority Queue/Heap & Scheduling Engineer *Build the shared custom data-structure library together — consistent interfaces, shared test conventions, cross-review before merging.* |
+| **Algorithms Squad** | 3 people | Weeks 2–3, consumes Structures Squad output | • Search & Sort Engineer • Graph & Routing Engineer • Optimisation Engineer *Implement the required algorithms on top of the finished data structures; flag any structure gaps back to Structures Squad early.* |
+| **Evidence Squad** | 2 people | Runs throughout, intensifies Week 4 | • Testing & Correctness Lead • Performance Analysis & Report Lead *Collect tests, trace tables, proofs and performance graphs as they**'**re produced — not scrambled together at the last minute.* |
+
+# **3. Shared Repository Rules**
+
+**1. **One shared GitHub repository for the whole team — not separate repos per squad.
+
+**2. **One branch per person or per module; never commit directly to main.
+
+**3. **Every merge into main goes through a Pull Request reviewed by at least one other teammate — ideally someone from the same squad.
+
+**4. **Commit messages reference the module/role (e.g. "M3: add BST insert + search + tests") so the repo doubles as GitHub evidence.
+
+**5. **README kept up to date with run instructions from Week 1 onward, not written last-minute.
+
+# **4. Weekly Sync ****&**** Development Log**
+
+One short stand-up per week (15–20 minutes), run by the Project Lead. Each person reports: what's done, what's blocked, who they need help from. The Project Lead records this in the shared development log — this is required for Section 15 of the brief and doubles as your weekly-progress evidence.
+
+# **5. Week-by-Week Plan**
+
+| **Week** | **Focus** | **Key Activities** |
+| --- | --- | --- |
+| **Week 1** | **Foundation** | Foundation Squad locks local context, dataset, schema (schema.sql), and index-number-derived parameters. Repo set up: one shared GitHub repo, branch-per-person convention agreed, README started. First stand-up: confirm roles, confirm timeline, flag any early blockers. |
+| **Week 2** | **Structures** | Structures Squad builds the custom data-structure library (array, linked list, stack, queues, deque, trees, hash table, heap, disjoint set). Each structure merged via PR reviewed by at least one other Structures Squad member. Mini integration check: Foundation Squad's DB loader feeds sample data into the new structures. |
+| **Week 3** | **Algorithms** | Algorithms Squad implements search/sort, graph (BFS/DFS/Dijkstra/Prim/Kruskal), greedy and DP on top of the structures. Evidence Squad starts collecting trace tables and unit tests as each algorithm lands. Second integration check: run a full request end-to-end (submit → queue → route → dispatch). |
+| **Week 4** | **Evidence ****&**** Defense** | Evidence Squad finishes 40+ unit tests, 6 trace tables, 3 proof sketches, 2 counterexamples, and performance graphs. Everyone runs their own module through the console menu at least once before demo day. Report compiled, demo video recorded, oral-defense assignments confirmed (1 structure + 1 algorithm per person). |
+
+# **6. Integration Discipline**
+
+Don't let every squad build in isolation for three weeks and try to wire everything together the night before submission. Build in two checkpoints:
+
+- End of Week 2: run sample data from the database loader through the new data-structure library, even if the result is rough.
+
+- End of Week 3: run one full request end-to-end — submit → queue → route → dispatch — to confirm every module actually talks to the others.
+
+# **7. Demo ****&**** Oral Defense Readiness**
+
+Because every member must personally defend one data structure and one algorithm, each person should run their own module through the console menu at least once before demo day — not just confirm it works in isolation inside their own test file. Build this into the Week 4 checklist so it isn't a surprise on defense day.
+
+**Note: ***this workflow is designed to satisfy Section 15**'**s academic-integrity and individual-accountability requirements while keeping the 4-week timeline from Section 13 realistic for a team of 14.*

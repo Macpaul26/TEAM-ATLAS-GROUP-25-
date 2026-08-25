@@ -1,0 +1,25 @@
+**DCIT ****204/****308**** ****Project Submission Checklist and Cover Sheet**
+
+| Team name |  |
+| --- | --- |
+| Selected Ghana context |  |
+| Organisation/problem modelled |  |
+| Database used |  |
+| Programming language/version | Java |
+| Total records in dataset |  |
+| Repository or submitted ZIP name |  |
+
+# Checklist
+
+| **Requirement** | **Tick** | **Evidence location** |
+| --- | --- | --- |
+| Local dataset with data dictionary |  |  |
+| Database schema and seed data |  |  |
+| Custom data structures implemented |  |  |
+| Searching and sorting algorithms |  |  |
+| Graph algorithms implemented |  |  |
+| Greedy and DP algorithms |  |  |
+| Correctness tests and trace tables |  |  |
+| Performance CSV and graphs |  |  |
+| Technical report |  |  |
+| Demo video / oral defense prepared |  |  |

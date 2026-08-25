@@ -1,0 +1,57 @@
+location_id,name,area,location_type,x_coord,y_coord
+L001,Commonwealth Hall,Legon,Hostel,5.657665,-0.189737
+L002,Legon Hall,Legon,Hostel,5.657287,-0.183464
+L003,Akuafo Hall,Legon,Hostel,5.659435,-0.186917
+L004,Volta Hall,Legon,Hostel,5.654072,-0.183639
+L005,Mensah Sarbah Hall,Legon,Hostel,5.653332,-0.185922
+L006,Alexander Kwapong Hall,Legon,Hostel,5.65961,-0.192242
+L007,Elizabeth Sey Hall,Legon,Hostel,5.657071,-0.181284
+L008,Jean Nelson Aka Hall,Legon,Hostel,5.658873,-0.192483
+L009,Hilla Limann Hall,Legon,Hostel,5.653261,-0.182853
+L010,Africa Union Hall,Legon,Hostel,5.656555,-0.191117
+L011,International Students Hostel,Legon,Hostel,5.657711,-0.182053
+L012,TF Hostel,Legon,Hostel,5.655624,-0.185637
+L013,Evandy Hostel,Legon,Hostel,5.655447,-0.189557
+L014,Pentagon Hostel,Legon,Hostel,5.659676,-0.19269
+L015,Bani Hostel,Legon,Hostel,5.649971,-0.183742
+L016,James Topp Nelson Yankah Hall,Legon,Hostel,5.656613,-0.189014
+L017,Valco Trust Hostel,Legon,Hostel,5.64955,-0.188725
+L018,Department of Computer Science,Legon,Academic,5.656546,-0.192425
+L019,Balme Library,Legon,Academic,5.649016,-0.184052
+L020,Great Hall,Legon,Academic,5.654039,-0.179628
+L021,New NB Lecture Theatre,Legon,Academic,5.656784,-0.183881
+L022,Jones Quartey Building,Legon,Academic,5.656741,-0.183422
+L023,Chemistry Department,Legon,Academic,5.654514,-0.183861
+L024,Physics Department,Legon,Academic,5.658575,-0.180562
+L025,Mathematics Department,Legon,Academic,5.6596,-0.190398
+L026,UG Business School,Legon,Academic,5.659968,-0.185146
+L027,School of Law,Legon,Academic,5.648944,-0.18698
+L028,School of Pharmacy,Legon,Academic,5.659601,-0.191289
+L029,Noguchi Memorial Institute,Legon,Academic,5.657356,-0.188183
+L030,UG Medical School,Legon,Academic,5.655124,-0.184028
+L031,School of Performing Arts,Legon,Academic,5.654176,-0.179483
+L032,Department of Statistics,Legon,Academic,5.65804,-0.186739
+L033,Kofi Drah Lecture Hall,Legon,Academic,5.65248,-0.17932
+L034,Cedi Conference Centre,Legon,Academic,5.654641,-0.189933
+L035,Institute of African Studies,Legon,Academic,5.65428,-0.192773
+L036,Main Administration Block,Legon,Admin,5.659183,-0.188247
+L037,Registrar Office,Legon,Admin,5.64826,-0.18274
+L038,Finance Directorate,Legon,Admin,5.652935,-0.192386
+L039,ICT Directorate,Legon,Admin,5.657346,-0.189323
+L040,Main Gate Security Post,Legon,Security,5.649707,-0.188416
+L041,Okponglo Gate Post,Legon,Security,5.650624,-0.183458
+L042,Diaspora Gate Post,Legon,Security,5.657455,-0.190566
+L043,Night Market,Legon,Retail,5.650539,-0.189681
+L044,Bush Canteen,Legon,Retail,5.650826,-0.18492
+L045,Banking Square,Legon,Retail,5.655615,-0.189003
+L046,Central Cafeteria,Legon,Retail,5.656939,-0.185042
+L047,Sports Stadium,Legon,Sports,5.656393,-0.182915
+L048,Legon Gymnasium,Legon,Sports,5.659891,-0.187903
+L049,Tennis Courts,Legon,Sports,5.657099,-0.188778
+L050,"University Hospital, Legon",Legon,Health,5.652847,-0.180921
+L051,Legon Health Post,Legon,Health,5.655328,-0.186527
+L052,Night Market Shuttle Stop,Legon,Shuttle,5.649601,-0.190098
+L053,Commonwealth Junction Shuttle Stop,Legon,Shuttle,5.650808,-0.179907
+L054,Diaspora Shuttle Stop,Legon,Shuttle,5.649049,-0.188203
+L055,Central Shuttle Terminal,Legon,Shuttle,5.659862,-0.182894
+L056,Sarbah Park Shuttle Stop,Legon,Shuttle,5.657755,-0.183373

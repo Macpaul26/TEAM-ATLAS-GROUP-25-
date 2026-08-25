@@ -1,0 +1,4 @@
+bin/
+sources.txt
+data/campushub.db
+*.class

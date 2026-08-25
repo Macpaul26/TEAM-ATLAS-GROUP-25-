@@ -1,0 +1,280 @@
+**UNIVERSITY OF GHANA**
+**DEPARTMENT OF COMPUTER SCIENCE**
+
+**DCIT ****204/****308: Data Structures and Algorithms ****I ****&**** ****II**
+
+**Joint ****DSA ****Semester Project **
+
+**Ghana Smart Service Operations Optimizer**
+
+A practical project integrating algorithm design, empirical analysis, linear and hierarchical data structures, graph algorithms, database storage, correctness testing and performance reporting.
+
+| Course | DCIT 204/308 Data Structures and Algorithms I&II |
+| --- | --- |
+| Project mode | Team project: 12-16 students, with individual accountability |
+| Recommended duration | **4 weeks** |
+| Recommended language | Java; database may be SQLite, MySQL or PostgreSQL |
+| Final output | Working system, source code, database, tests, performance graphs, technical report and oral defense |
+
+# 1. Project overview
+
+Students will build a realistic Ghana-context service operations platform that stores local operational data in a database, loads the data into custom-built data structures, applies algorithms to solve operational problems, verifies correctness, measures efficiency as input sizes increase, and presents evidence using tables and graphs. The recommended scenario is a Smart Service Operations Optimizer for a campus, municipality, hospital, logistics firm, ride dispatch service, waste-collection team, emergency-response team, or library-resource system in Ghana. Each team must select one local context and adapt the data, locations, service rules and constraints to that context.
+
+*This is not a UI-design project. The core marks are for correct data-structure implementation, algorithmic reasoning, empirical analysis, testing, database integration and clarity of explanation.*
+
+# 2. Industry scenario and Ghana localisation
+
+Your organisation operates across a local Ghanaian environment. It receives service requests, stores them in a database, prioritises urgent jobs, assigns resources, finds routes between locations, monitors connectivity between zones, supports search and reporting, and evaluates algorithm performance.
+
+| **Allowed local contexts** | **Example data students must adapt locally** |
+| --- | --- |
+| University campus service hub | hostels, lecture halls, labs, shuttle stops, maintenance requests, lab-resource movement |
+| Hospital or clinic operations | departments, patients, urgency levels, pharmacy requests, dispatch routes |
+| Municipal waste or sanitation routing | communities, collection points, truck routes, priority areas |
+| Courier or food delivery service | vendors, customer zones, riders, parcel priority, route network |
+| Library or records office | book/request records, shelves, issue queues, search indexes |
+
+## AI-resistance and localisation requirements
+
+- Each team must use a Ghanaian local context and submit a short evidence note explaining how the dataset was obtained or constructed from local knowledge without exposing personal data.
+
+- The dataset must include local names of places, routes, service categories and realistic constraints such as traffic, distance, urgency, operating hours, limited vehicles or staff.
+
+- Each team must derive at least three algorithm parameters from member index numbers, for example priority weight, route penalty, hash-table size, random seed or budget constraint.
+
+- Each team must include trace tables for selected algorithms. Generic code without trace evidence will be treated as incomplete.
+
+- Every member must defend one data structure and one algorithm during the oral demonstration.
+
+# 3. Core problem statement
+
+Design and implement a system that answers operational questions such as the following:
+
+- Which service request should be handled next under FIFO, urgency, and priority-based rules?
+
+- What is the fastest route from one local location to another under weighted-road conditions?
+
+- Which locations are reachable from the current dispatch point?
+
+- Which subset of requests or resources can be selected under a budget, capacity or time constraint?
+
+- How do alternative data structures and algorithms perform as the dataset grows?
+
+- How can the system store records permanently and reload them for later analysis?
+
+# 4. Minimum dataset and database requirements
+
+| **Data entity** | **Minimum records** | **Required fields** |
+| --- | --- | --- |
+| Locations | 50 | locationId, name, area, type, latitude/longitude or local coordinates |
+| Roads/edges | 100 | fromLocationId, toLocationId, distance, travelTime, roadConditionWeight |
+| Service requests | 300 | requestId, source, destination, category, urgency, timeSubmitted, deadline, status |
+| Resources | 30 | resourceId, type, homeLocation, capacity, availabilityStatus |
+| Algorithm runs | 30 | runId, algorithmName, inputSize, timeNs, memoryKb, dateRun |
+
+Students may use CSV files to seed the database, but the final program must read from and write to the database. The database is not only storage; it must be part of the running system.
+
+## Suggested database schema
+
+| **Table** | **Purpose** |
+| --- | --- |
+| locations | Stores all nodes in the local service network. |
+| roads | Stores weighted edges between locations. |
+| service_requests | Stores jobs that will be queued, prioritised, searched and sorted. |
+| resources | Stores vehicles, officers, staff, riders or assets that can be assigned. |
+| algorithm_runs | Stores empirical runtime measurements and input-size metadata. |
+| audit_events | Stores stack-based undo/audit operations and important system events. |
+
+# 5. Required system modules
+
+| **Module** | **Required work** |
+| --- | --- |
+| M1. Input-output and problem specification | Define computational problems, expected inputs, outputs, assumptions, constraints, and pseudocode/flowcharts for at least five major operations. |
+| M2. Database and data loader | Create database tables, import CSV data, validate records, and reload data into custom structures. |
+| M3. Custom data-structure library | Implement the required structures yourself: linked list, iterator, stack, queues, deque, priority queue, BST, red-black tree, B-tree, hash table, heap, disjoint set and graph. |
+| M4. Searching and sorting engine | Implement linear search, binary search, selection sort, insertion sort, merge sort and quicksort; compare conditions and performance. |
+| M5. Service scheduling engine | Use FIFO queue, circular queue, deque and priority queue/heap to model different dispatch rules. |
+| M6. Indexing engine | Use BST, balanced tree and B-tree ideas to support search indexes over requests, locations or resources. |
+| M7. Graph route engine | Represent the local network using adjacency list and adjacency matrix; implement BFS, DFS, Dijkstra, Prim and Kruskal. |
+| M8. Optimisation engine | Implement at least one greedy algorithm and one dynamic programming algorithm; include one failure/counterexample for greedy. |
+| M9. Testing and correctness evidence | Provide unit tests, trace tables, loop invariants or proof sketches for selected algorithms. |
+| M10. Empirical efficiency lab | Measure time and memory for selected algorithms over varying input sizes and plot graphs. |
+
+# 6. Required data structures and exact evidence expected
+
+| **Data structure** | **Must implement** | **Evidence required** |
+| --- | --- | --- |
+| Dynamic array or array-backed list | insert, get, set, remove, resize | unit tests and resize trace |
+| Singly or doubly linked list | addFirst, addLast, insertAfter, remove, iterator | diagram plus iterator demo |
+| Stack | push, pop, peek, isEmpty | undo log or recursion simulation |
+| Queue and circular queue | enqueue, dequeue, wrap-around handling | trace showing front/rear movement |
+| Deque | addFront, addRear, removeFront, removeRear | urgent request insertion example |
+| Priority queue / heap | insert, extractMin/Max, heapify | dispatch order trace |
+| BST | insert, search, inorder traversal | search path and sorted inorder output |
+| Red-black tree | insertion with rotations/recolouring OR clear simplified balanced-tree implementation | before/after rotation diagrams and height discussion |
+| B-tree | node split and search OR database index simulation using B-tree pages | search trace and node split explanation |
+| Hash table | put, get, remove, collision handling | collision statistics for different load factors |
+| Set, map | custom set/map on top of hash table or BST | membership and lookup use case |
+| Disjoint set | makeSet, find, union by rank/size, path compression | Kruskal connectivity trace |
+| Graph | adjacency list and matrix | BFS/DFS/Dijkstra/MST results |
+
+# 7. Required algorithms and strategies
+
+| **Topic** | **Required implementation** | **Required analysis/evidence** |
+| --- | --- | --- |
+| Foundations of algorithms | Pseudocode and input-output definition for core operations | clear preconditions, outputs and edge cases |
+| Efficiency analysis | Primitive operation count for at least two algorithms | best, average and worst-case notes |
+| Asymptotic notation | Big-O, Big-Theta and Big-Omega summary | relate theory to empirical graph |
+| Brute force/exhaustive search | try all candidate assignments or route combinations for small n | show why it fails for large n |
+| Linear and binary search | both implemented and tested | binary search precondition stated and tested |
+| Selection and insertion sort | both implemented from scratch | stability and in-place discussion |
+| Merge sort and quicksort | both implemented from scratch | recurrence/intuitive decomposition notes |
+| Greedy algorithm | priority-based resource assignment or route choice | include a counterexample where greedy fails |
+| Dynamic programming | knapsack-style request selection or route/budget optimisation | memoisation or tabulation table and reconstruction |
+| BFS and DFS | reachable locations and traversal orders | trace table and graph diagram |
+| Dijkstra | shortest path between two local locations | distance table and predecessor path |
+| Prim and Kruskal | minimum connection network | MST edge list and total cost |
+| Correctness and tractability | proof sketch for at least three algorithms | counterexample or limits discussion |
+
+# 8. Implementation constraints
+
+- The core data structures listed in Section 6 must be implemented by the students. Built-in HashMap, TreeMap, PriorityQueue, Stack, ArrayDeque and similar classes are not allowed for assessed core logic.
+
+- Built-in Java utilities may be used for file reading, printing, JDBC/database support, plotting export and unit-test scaffolding.
+
+- Every custom structure must have tests for normal case, boundary case and invalid input case.
+
+- The program must include a console menu or simple GUI that allows an examiner to run demonstrations without editing source code.
+
+- The system must persist data to a database and must record algorithm experiment results in the database or exported CSV.
+
+- The final report must include screenshots, trace tables and graphs, not only code listings.
+
+# 9. Required performance experiments
+
+The efficiency workflow is presented below
+
+| **Experiment** | **Minimum input sizes** | **Expected graph** |
+| --- | --- | --- |
+| Search comparison | 100, 500, 1,000, 5,000, 10,000 records | linear vs binary search runtime |
+| Sorting comparison | 100, 500, 1,000, 5,000, 10,000 requests | selection, insertion, merge, quicksort |
+| Hash table load factor | 100 to 20,000 keys with different table sizes | load factor vs collision count/time |
+| BST vs balanced tree | insert/search at multiple sizes | height and search time comparison |
+| Heap priority dispatch | 100 to 20,000 requests | insert/extract operation time |
+| Graph algorithms | 50, 100, 200, 500 locations/edges | BFS/DFS/Dijkstra/MST runtime |
+
+- Run each experiment at least three times and report the average runtime.
+
+- Use the same machine for all experiments and state the machine specification.
+
+- Export results to CSV and plot line graphs. Excel, Python or Java plotting libraries may be used.
+
+- Explain any mismatch between theoretical complexity and observed runtime.
+
+# 10. Correctness and testing expectations
+
+| **Evidence type** | **Minimum requirement** |
+| --- | --- |
+| Unit tests | At least 40 tests across data structures and algorithms. |
+| Trace tables | At least six trace tables: binary search, insertion sort, merge sort/quick sort, Dijkstra, Kruskal/Prim, DP. |
+| Proof sketches | At least three: loop invariant for search/sort, induction/recursion proof, greedy or DP correctness idea. |
+| Counterexamples | At least two: one greedy failure and one invalid precondition such as unsorted binary search input. |
+| Edge cases | empty structure, single element, duplicate keys, disconnected graph, unreachable path, queue full/empty, hash collision. |
+
+# 11. Final report structure
+
+		Cover page with title, team members, local Ghana context and selected organisation/problem.
+
+		Problem statement, assumptions, input-output definitions and system boundaries.
+
+		Dataset description, data dictionary and database schema.
+
+		System architecture and module design.
+
+		Data-structure implementation section with diagrams and explanations.
+
+		Algorithm implementation section with pseudocode and selected Java snippets.
+
+		Correctness evidence: trace tables, invariants, proof sketches and edge-case tests.
+
+		Performance analysis: method, input sizes, raw results tables, graphs and interpretation.
+
+		Database integration evidence: schema, sample records, screenshots and run logs.
+
+		Responsible algorithm selection: when the chosen algorithm is appropriate and when it is not.
+
+		Individual contribution statement and oral-defense preparation notes.
+
+		References and appendices.
+
+# 12. Required submission items
+
+| **Item** | **Format** | **Notes** |
+| --- | --- | --- |
+| Source code | ZIP or Git repository export | Include README and run instructions. |
+| Database scripts | SQL files and database seed data | schema.sql and sample CSV files required. |
+| Technical report | PDF and DOCX | Use the report structure above. |
+| Performance results | CSV plus plotted graphs | Keep raw timings, not only screenshots. |
+| Demonstration video | 5-8 minutes | Show database load, core algorithms, tests and graphs. |
+| Oral defense | live or recorded | Each student must explain one structure and one algorithm. |
+
+# 13. Recommended milestones
+
+| **Milestone** | **Expected completion** |
+| --- | --- |
+| M1: Local context and dataset plan | Problem statement, data dictionary and schema draft |
+| M2: Data-structure library | Core structures implemented with unit tests |
+| M3: Searching and sorting | Search/sort algorithms with correctness traces |
+| M4: Graph and optimisation | Graph algorithms, greedy and DP implemented |
+| M5: Database integration | Load/save/search data through database |
+| M6: Efficiency study | CSV results and graphs produced |
+| M7: Final defense | Report, code, database and demo ready |
+
+# 14. Assessment rubric
+
+| **Area** | **Marks** | **What earns high marks** |
+| --- | --- | --- |
+| Local problem design and data quality | 10 | Realistic Ghana context, clean data dictionary, strong input-output thinking. |
+| Data-structure implementation | 20 | Correct custom implementations, edge-case handling, clear diagrams and tests. |
+| Algorithm implementation | 20 | Correct search, sort, divide-and-conquer, graph, greedy and DP algorithms. |
+| Database integration | 10 | Persistent storage, SQL schema, import/export and clean separation from algorithms. |
+| Correctness and testing | 15 | Trace tables, proof sketches, invariants, unit tests and counterexamples. |
+| Efficiency analysis and graphs | 15 | Reliable experiments, varying input sizes, graphs and theory-to-practice interpretation. |
+| Report quality and oral defense | 10 | Clear writing, screenshots, individual accountability and confident explanation. |
+| Total | 100 |  |
+
+# 15. Academic integrity and AI-resistance controls
+
+- Every team must use a distinct Ghanaian local context and dataset. Copying a generic online logistics, hospital or campus example without localisation will lose marks.
+
+- The report must include team-specific trace outputs generated from the team dataset and index-number parameters.
+
+- The examiner may ask students to modify a priority rule, add a new location, change a hash table size, or rerun an algorithm live.
+
+- Students must submit a short development log showing weekly progress, challenges and decisions.
+
+- Generic explanations without code evidence, tests, runtime data and database screenshots will not be accepted as complete.
+
+- All AI assistance, if used, must be acknowledged, and students must be able to explain and modify their own implementation **(with the supporting prompts used)**.
+
+# 16. Suggested references
+
+- Cormen, Leiserson, Rivest and Stein, Introduction to Algorithms, MIT Press.
+
+- Sedgewick and Wayne, Algorithms, Princeton University.
+
+- Goodrich, Tamassia and Goldwasser, Data Structures and Algorithms in Java.
+
+- Lewis, DePasquale and Chase, Java Foundations: Introduction to Program Design and Data Structures.
+
+- MIT OpenCourseWare: Introduction to Algorithms.
+
+- OpenDSA: Data Structures and Algorithms learning materials.
+
+- Stanford CS166 and Princeton Algorithms public-lecture materials on advanced tree and graph intuition.
+
+- 17. Attendance
+
+- All students must sign-in/out during team meetings.
+
+1
