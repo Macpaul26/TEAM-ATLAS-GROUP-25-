@@ -148,6 +148,29 @@ public class Database implements AutoCloseable {
         return out;
     }
 
+    /** A single audit event with fields kept separate, for GUI tables (see recentAuditEventsDetailed). */
+    public static class AuditEventRow {
+        public final int id;
+        public final String eventType;
+        public final String entityType;
+        public final String entityId;
+        public final String eventTime;
+        public AuditEventRow(int id, String eventType, String entityType, String entityId, String eventTime) {
+            this.id = id; this.eventType = eventType; this.entityType = entityType;
+            this.entityId = entityId; this.eventTime = eventTime;
+        }
+    }
+
+    /** Same data as recentAuditEvents, but with fields kept separate instead of pre-joined into one string. */
+    public MyArrayList<AuditEventRow> recentAuditEventsDetailed(int limit) {
+        MyArrayList<AuditEventRow> out = new MyArrayList<>();
+        query("SELECT event_id,event_type,entity_type,entity_id,event_time FROM audit_events " +
+              "ORDER BY event_id DESC LIMIT " + limit, rs ->
+              out.add(new AuditEventRow(rs.getInt(1), rs.getString(2), rs.getString(3),
+                      rs.getString(4), rs.getString(5))));
+        return out;
+    }
+
     // ---- helpers ----
     private interface RowConsumer { void accept(ResultSet rs) throws SQLException; }
 

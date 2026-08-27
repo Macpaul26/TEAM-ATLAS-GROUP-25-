@@ -1,6 +1,8 @@
 #!/bin/bash
-# Runs the interactive console menu (the examiner entry point).
-if [ ! -f "bin/campushub/Main.class" ]; then
+# Launches the graphical (Swing) version of the program.
+# This is a second way to run the project alongside run.sh (console menu) -
+# both call the exact same backend code, just with a different front end.
+if [ ! -f "bin/campushub/RunGui.class" ]; then
     echo "Project not compiled yet. Running compile.sh first..."
     ./compile.sh
 fi
@@ -11,4 +13,4 @@ case "$OSTYPE" in
   msys*|cygwin*|win32*) SEP=";" ;;
   *) SEP=":" ;;
 esac
-java -cp "bin${SEP}lib/sqlite-jdbc.jar" campushub.Main
+java -cp "bin${SEP}lib/sqlite-jdbc.jar" campushub.RunGui

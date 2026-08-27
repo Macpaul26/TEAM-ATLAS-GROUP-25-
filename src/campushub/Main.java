@@ -22,7 +22,7 @@ import campushub.trace.Traces;
 import java.util.Scanner;
 
 /**
- * Ghana Smart Service Operations Optimizer — interactive console menu.
+ * TEAM ATLAS - GROUP 25 — interactive console menu.
  *
  * This is the examiner-facing entry point required by brief section 8:
  * an examiner can run every demonstration (database load, scheduling,
@@ -48,8 +48,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("============================================================");
-        System.out.println(" Ghana Smart Service Operations Optimizer");
-        System.out.println(" Team SEG26-41 SYNERGY  |  University of Ghana, Legon");
+        System.out.println(" TEAM ATLAS - GROUP 25");
+        System.out.println(" University of Ghana, Legon");
         System.out.println(" DCIT 204/308 Joint DSA Semester Project");
         System.out.println("============================================================");
 
@@ -250,26 +250,83 @@ public class Main {
 
     // ---- 9 ----
     private static void demoSearch() {
-        Integer[] sorted = {2, 5, 8, 12, 16, 23, 38, 45, 56, 72, 91};
-        int target = askInt("Search for which value? (try 23) ", 23);
-        System.out.println("Array (sorted): " + java.util.Arrays.toString(sorted));
-        System.out.println("  linearSearch -> index " + Searching.linearSearch(sorted, target));
-        System.out.println("  binarySearch -> index " + Searching.binarySearch(sorted, target));
-        Integer[] unsorted = {5, 1, 3, 2, 4};
-        System.out.println("\nCounterexample: binary search REQUIRES sorted input.");
-        System.out.println("  unsorted array: " + java.util.Arrays.toString(unsorted));
-        System.out.println("  linearSearch(1) -> index " + Searching.linearSearch(unsorted, 1) + " (correct)");
-        System.out.println("  binarySearch(1) -> index " + Searching.binarySearch(unsorted, 1) + " (WRONG: precondition violated)");
+        System.out.println("=== Search demo (your own data) ===");
+        Integer[] arr = readIntArray("Enter your array, comma-separated (e.g. 5,3,8,1,9): ");
+        System.out.println("Your array: " + java.util.Arrays.toString(arr));
+        int target = askInt("Search for which value? ", arr[0]);
+
+        String type = ask("Type of search - (l)inear or (b)inary? ").trim().toLowerCase();
+        if (type.startsWith("b")) {
+            boolean isSorted = Sorting.isSorted(arr);
+            if (!isSorted) {
+                System.out.println("NOTE: this array is NOT sorted. Binary search's precondition");
+                System.out.println("requires sorted input - running it anyway so you can see what happens.");
+            }
+            int result = Searching.binarySearch(arr, target);
+            System.out.println("binarySearch(" + target + ") -> index " + result);
+            if (!isSorted) {
+                int linResult = Searching.linearSearch(arr, target);
+                System.out.println("(for comparison) linearSearch(" + target + ") -> index " + linResult);
+                if (result != linResult) {
+                    System.out.println("^ That mismatch is binary search's precondition being violated.");
+                }
+            }
+        } else {
+            int result = Searching.linearSearch(arr, target);
+            System.out.println("linearSearch(" + target + ") -> index " + result);
+        }
     }
 
     // ---- 10 ----
     private static void demoSort() {
-        Integer[] base = {29, 10, 14, 37, 13, 1, 45, 22};
+        System.out.println("=== Sort demo (your own data) ===");
+        Integer[] base = readIntArray("Enter your array, comma-separated (e.g. 29,10,14,37,13,1): ");
         System.out.println("Original: " + java.util.Arrays.toString(base));
-        Integer[] a = base.clone(); Sorting.selectionSort(a); System.out.println("  selection: " + java.util.Arrays.toString(a));
-        a = base.clone(); Sorting.insertionSort(a); System.out.println("  insertion: " + java.util.Arrays.toString(a));
-        a = base.clone(); Sorting.mergeSort(a);     System.out.println("  merge    : " + java.util.Arrays.toString(a));
-        a = base.clone(); Sorting.quickSort(a);     System.out.println("  quick    : " + java.util.Arrays.toString(a));
+
+        System.out.println("Choose: 1) selection  2) insertion  3) merge  4) quick  5) all four");
+        String choice = ask("Choice: ").trim();
+        Integer[] a;
+        switch (choice) {
+            case "1":
+                a = base.clone(); Sorting.selectionSort(a);
+                System.out.println("selection: " + java.util.Arrays.toString(a));
+                break;
+            case "2":
+                a = base.clone(); Sorting.insertionSort(a);
+                System.out.println("insertion: " + java.util.Arrays.toString(a));
+                break;
+            case "3":
+                a = base.clone(); Sorting.mergeSort(a);
+                System.out.println("merge    : " + java.util.Arrays.toString(a));
+                break;
+            case "4":
+                a = base.clone(); Sorting.quickSort(a);
+                System.out.println("quick    : " + java.util.Arrays.toString(a));
+                break;
+            default:
+                a = base.clone(); Sorting.selectionSort(a); System.out.println("selection: " + java.util.Arrays.toString(a));
+                a = base.clone(); Sorting.insertionSort(a); System.out.println("insertion: " + java.util.Arrays.toString(a));
+                a = base.clone(); Sorting.mergeSort(a);     System.out.println("merge    : " + java.util.Arrays.toString(a));
+                a = base.clone(); Sorting.quickSort(a);     System.out.println("quick    : " + java.util.Arrays.toString(a));
+        }
+    }
+
+    /** Reads a comma-separated list of integers from the user, re-prompting on bad input. */
+    private static Integer[] readIntArray(String prompt) {
+        while (true) {
+            String input = ask(prompt);
+            String[] parts = input.split(",");
+            try {
+                Integer[] arr = new Integer[parts.length];
+                for (int i = 0; i < parts.length; i++) {
+                    arr[i] = Integer.parseInt(parts[i].trim());
+                }
+                if (arr.length == 0) throw new NumberFormatException("empty");
+                return arr;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter whole numbers separated by commas, e.g. 5,3,8,1,9");
+            }
+        }
     }
 
     // ---- 11 ----
